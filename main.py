@@ -119,6 +119,7 @@ class App(tk.Tk):
         self.bouton_importer_json.grid(row=1, column=3, sticky="", pady=(10,20))
 
 
+
         self.frame_tableau = tk.Frame(content)
         self.frame_tableau.grid(row=2, column=0, sticky="nsew", padx= 10, pady= 10)
 
@@ -173,10 +174,11 @@ class App(tk.Tk):
 
     def modifier(self):
         selected_item = self.tree.selection()
+
         if selected_item:
-            produit = self.tree.item("produit", selected_item[0])
-            quantite = self.tree.item("quantite", selected_item[0])
-            prix = self.tree.item("prix", selected_item[0])
+            produit = self.tree.set(selected_item[0],"produit")
+            quantite = self.tree.set(selected_item[0],"quantite")
+            prix = self.tree.set(selected_item[0],"prix" )
 
             self.entry_produit.delete(0, "end")
             self.entry_produit.insert(0, produit)
@@ -190,6 +192,8 @@ class App(tk.Tk):
             self.tree.delete(selected_item)
         else:
             messagebox.showwarning("Avertissement", "Aucun élement selectionné.")
+
+
 
     def exporterJson(self):
         if not self.rows:
