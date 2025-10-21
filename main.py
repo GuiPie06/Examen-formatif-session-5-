@@ -103,7 +103,7 @@ class App(tk.Tk):
         self.bouton_supprimer = tk.Button(self.labelframe_gestion, text="Supprimer Produit", command=self.supprimer)
         self.bouton_supprimer.grid(row=0, column=0, sticky="", columnspan=2, pady=10)
 
-        self.bouton_modifier = tk.Button(self.labelframe_gestion, text="Modifier Produit")
+        self.bouton_modifier = tk.Button(self.labelframe_gestion, text="Modifier Produit", command= self.modifier)
         self.bouton_modifier.grid(row=0, column=2, sticky="", columnspan=2, pady=10)
 
         self.bouton_sauvgarder_csv = tk.Button(self.labelframe_gestion, text="Sauvgarder CSV")
@@ -171,8 +171,25 @@ class App(tk.Tk):
             messagebox.showwarning("Avertissement", "Aucun élement selectionné.")
 
 
+    def modifier(self):
+        selected_item = self.tree.selection()
+        if selected_item:
+            produit = self.tree.item("produit", selected_item[0])
+            quantite = self.tree.item("quantite", selected_item[0])
+            prix = self.tree.item("prix", selected_item[0])
 
+            self.entry_produit.delete(0, "end")
+            self.entry_produit.insert(0, produit)
 
+            self.entry_quantite.delete(0, "end")
+            self.entry_quantite.insert(0, quantite)
+
+            self.entry_prix.delete(0, "end")
+            self.entry_prix.insert(0, prix)
+
+            self.tree.delete(selected_item)
+        else:
+            messagebox.showwarning("Avertissement", "Aucun élement selectionné.")
 
     def exporterJson(self):
         if not self.rows:
